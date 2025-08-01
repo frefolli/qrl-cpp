@@ -1,5 +1,6 @@
 #ifndef QRL_AGENTS_QL_AGENT
 #define QRL_AGENTS_QL_AGENT
+#include <iostream>
 #include <qrl/random.hh>
 #include <qrl/ostream.hh>
 #include <qrl/agent.hh>
@@ -16,6 +17,15 @@ namespace qrl {
     Reward gamma;
     double_t epsilon;
     double_t decay;
+
+    QLAgent() {
+      table = {};
+      policy = {};
+      alpha = 0.5f;
+      gamma = 0.95f;
+      epsilon = 1.0;
+      decay = 0.9999f;
+    }
 
     Action act(const State& state) {
       auto record_it = policy.find(state);
@@ -53,17 +63,6 @@ namespace qrl {
       uintmax_t max_idx = std::distance(action_rewards.begin(), reward_it);
       Reward max_rew = *reward_it;
       policy[old_state] = {max_idx, max_rew};
-    }
-
-    static QLAgent New() {
-      QLAgent agent; 
-      agent.table = {};
-      agent.policy = {};
-      agent.alpha = 0.5f;
-      agent.gamma = 0.95f;
-      agent.epsilon = 1.0;
-      agent.decay = 0.9999f;
-      return agent;
     }
   };
 

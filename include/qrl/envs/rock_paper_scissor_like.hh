@@ -20,7 +20,7 @@ namespace qrl {
        return env;
     }
 
-    std::vector<intmax_t> reset() {
+    std::vector<intmax_t> reset(uintmax_t /*seed*/) {
       step_count = 0;
       state = {std::rand() % 3};
       return state;

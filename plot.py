@@ -10,7 +10,11 @@ def moving_average(x, w):
 df = pandas.read_csv('./builddir/training.csv')
 Xs, Ys = moving_average(df['CumulativeReward'], 1)
 matplotlib.pyplot.plot(Xs, Ys)
-matplotlib.pyplot.savefig('./builddir/training.png')
+matplotlib.pyplot.savefig('./builddir/training-raw.png')
+matplotlib.pyplot.close()
+Xs, Ys = moving_average(df['CumulativeReward'], 100)
+matplotlib.pyplot.plot(Xs, Ys)
+matplotlib.pyplot.savefig('./builddir/training-ma.png')
 matplotlib.pyplot.close()
 
 df = pandas.read_csv('./builddir/evaluation.csv')

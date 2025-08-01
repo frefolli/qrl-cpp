@@ -1,17 +1,12 @@
-#include <qrl/ostream.hh>
-#include <qrl/random.hh>
+#include <qrl/envs/tris.hh>
 #include <qrl/agents/ql_agent.hh>
-#include <qrl/envs/rock_paper_scissor_like.hh>
-#include <qrl/env.hh>
 #include <fstream>
-#include <iostream>
 
 using namespace qrl;
 
 int main() {
-  constexpr uintmax_t NUMBER_OF_OPTIONS = 10;
-  auto environment = RockPaperScissorLike<NUMBER_OF_OPTIONS>::New();
-  QLAgent<std::vector<intmax_t>, uintmax_t, double_t, NUMBER_OF_OPTIONS> agent;
+  Tris environment;
+  QLAgent<std::vector<intmax_t>, uintmax_t, double_t, 9> agent;
 
   std::ofstream training ("./builddir/training.csv");
   training << "Episode,CumulativeReward" << std::endl;

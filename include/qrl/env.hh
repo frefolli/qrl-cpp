@@ -10,8 +10,9 @@ namespace qrl {
   struct Environment {
     State state;
 
-    virtual State reset() = 0;
+    virtual State reset(uintmax_t seed = 0) = 0;
     virtual std::tuple<State, Reward, bool> step(Action action) = 0;
+    virtual void render() {}
   };
 
   template<typename State, typename Action, typename Reward, uintmax_t NUMBER_OF_OPTIONS>
@@ -41,6 +42,41 @@ namespace qrl {
       state = std::get<0>(update);
       cumulative_reward += std::get<1>(update);
       terminated = std::get<2>(update);
+    }
+    return cumulative_reward;
+  }
+
+  template<typename State, typename Action, typename Reward, uintmax_t NUMBER_OF_OPTIONS>
+  inline double_t render_training_episode(Environment<State, Action, Reward, NUMBER_OF_OPTIONS>& environment, Agent<State, Action, Reward, NUMBER_OF_OPTIONS>& agent) {
+    double_t cumulative_reward = 0.0;
+    std::vector<intmax_t> state = environment.reset();
+    bool terminated = false;
+    environment.render();
+    while (!terminated) {
+      uintmax_t action = agent.act(state);
+      auto update = environment.step(action);
+      agent.learn(state, action, std::get<0>(update), std::get<1>(update));
+      state = std::get<0>(update);
+      cumulative_reward += std::get<1>(update);
+      terminated = std::get<2>(update);
+      environment.render();
+    }
+    return cumulative_reward;
+  }
+
+  template<typename State, typename Action, typename Reward, uintmax_t NUMBER_OF_OPTIONS>
+  inline double_t render_evaluation_episode(Environment<State, Action, Reward, NUMBER_OF_OPTIONS>& environment, Agent<State, Action, Reward, NUMBER_OF_OPTIONS>& agent) {
+    double_t cumulative_reward = 0.0;
+    std::vector<intmax_t> state = environment.reset();
+    bool terminated = false;
+    environment.render();
+    while (!terminated) {
+      uintmax_t action = agent.act(state);
+      auto update = environment.step(action);
+      state = std::get<0>(update);
+      cumulative_reward += std::get<1>(update);
+      terminated = std::get<2>(update);
+      environment.render();
     }
     return cumulative_reward;
   }

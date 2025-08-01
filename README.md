@@ -18,3 +18,15 @@ Here is the learning curve over time of the agent:
 From its moving average we get a clearer picture of its evoluton:
 
 ![./examples/rock-paper-scissor-training-ma.png](./examples/rock-paper-scissor-training-ma.png)
+
+### Tris
+
+The agent always starts as first but the environment allows also for it to start second.
+
+Here is the learning curve over time of the agent:
+
+![./examples/tris-training-raw.png](./examples/tris-training-raw.png)
+
+From its moving average we get a clearer picture of its evoluton:
+
+![./examples/tris-training-ma.png](./examples/tris-training-ma.png)

@@ -9,3 +9,8 @@ executable('rock-paper-scissor', [
     'examples/rock-paper-scissor.cc'
   ], dependencies: [],
   include_directories: include)
+
+executable('tris', [
+    'examples/tris.cc'
+  ], dependencies: [],
+  include_directories: include)
