@@ -5,7 +5,7 @@ project('qrl-cpp',
 
 include = include_directories('./include')
 
-executable('qrl-cpp', [
-    'src/main.cc'
+executable('rock-paper-scissor', [
+    'examples/rock-paper-scissor.cc'
   ], dependencies: [],
   include_directories: include)
